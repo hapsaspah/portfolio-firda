@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firda Photopolio</title>
+    <style>
+        :root {
+            --bg: #fff5fb;
+            --card: #ffffff;
+            --text: #3d1f3f;
+            --muted: #8e617e;
+            --accent: #ff87c4;
+            --accent-soft: rgba(255, 135, 196, 0.12);
+            --shadow: 0 24px 80px rgba(84, 0, 65, 0.08);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #fff7fb 0%, #ffe7f1 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #9a3f7b;
+        }
+        .navbar nav {
+            display: flex;
+            gap: 18px;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+        .navbar nav a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 32px;
+            align-items: center;
+            padding: 20px 0 60px;
+        }
+        .hero-copy {
+            max-width: 560px;
+            animation: fadeIn 1.2s ease-out both;
+        }
+        .hero-copy span {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: #ac3676;
+            padding: 8px 14px;
+            border-radius: 9999px;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+        }
+        .hero-copy h2 {
+            font-size: clamp(2.6rem, 4vw, 4.4rem);
+            line-height: 1.02;
+            margin: 0 0 18px;
+        }
+        .hero-copy p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--muted);
+            margin: 0 0 28px;
+        }
+        .hero-copy .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: #9b3d7f;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 20px 40px rgba(156, 53, 120, 0.18);
+        }
+        .hero-visual {
+            position: relative;
+            min-height: 420px;
+        }
+        .hero-card {
+            position: absolute;
+            inset: 0;
+            border-radius: 32px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,244,250,0.95));
+            box-shadow: var(--shadow);
+            padding: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(255,135,196,0.4), transparent 60%);
+            border-radius: 50%;
+            top: -60px;
+            right: -60px;
+        }
+        .hero-card .thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 22px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        .hero-card .thumb.small {
+            height: 100%;
+        }
+        .hero-card .grid {
+            display: grid;
+            gap: 18px;
+        }
+        .hero-card .grid img {
+            width: 100%;
+            border-radius: 22px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(158, 56, 115, 0.08);
+            animation: fadeIn 1.2s ease-out both;
+        }
+        .card h3 {
+            margin: 0 0 12px;
+            font-size: 1.35rem;
+        }
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .gallery img {
+            width: 100%;
+            display: block;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(103, 10, 64, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .gallery img:hover {
+            transform: translateY(-8px);
+        }
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #9c3f7e;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+        .section-title::before {
+            content: '';
+            width: 28px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff8ac7, #d94b8a);
+        }
+        .contact-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 18px;
+        }
+        .contact-card div {
+            background: var(--accent-soft);
+            border-radius: 22px;
+            padding: 24px;
+        }
+        .contact-card h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: #73295d;
+        }
+        .contact-card p {
+            margin: 8px 0 0;
+            color: var(--text);
+            font-size: 0.98rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual {
+                min-height: 360px;
+            }
+            .hero-card {
+                position: relative;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="navbar">
+            <h1>Firda Photopolio</h1>
+            <nav>
+                <a href="#gallery">Gallery</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <span>Hi, I'm Hapsarini</span>
+                <h2>Haii, saya Hapsarini Firda Arifin<br>dan ini adalah portofolio saya.</h2>
+                <p> HELLO, Selamat datang!!</p>
+                <a class="button" href="#gallery">Lihat Galeri</a>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <img class="thumb" src="foto1.png" alt="Foto 1">
+                    <div class="grid">
+                        <img src="foto2.png" alt="Foto 2">
+                        <img src="foto3.png" alt="Foto 3">
+                        <img src="foto4.png" alt="Foto 4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="cards">
+            <div class="card">
+                <h3>About Me</h3>
+                <p>Saya adalah seorang siswa kelas 11 di sma al irsyad al islamiyyah 
+            <div class="card">
+                <h3>My Style</h3>
+                <p>Gaya fotografi saya fokus pada kesan lembut, komposisi harmonis, serta warna-warna pastel yang menonjolkan emosi dan suasana.</p>
+            </div>
+            <div class="card">
+                <h3>What I Offer</h3>
+                <p>Foto personal, portofolio, dan konten visual yang cocok untuk branding, event, atau proyek kreatif Anda.</p>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="section-title">Portfolio Gallery</div>
+            <div class="gallery">
+                <img src="foto1.png" alt="Foto 1">
+                <img src="foto2.png" alt="Foto 2">
+                <img src="foto3.png" alt="Foto 3">
+                <img src="foto4.png" alt="Foto 4">
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-title">Get in Touch</div>
+            <div class="contact-card">
+                <div>
+                    <h2>Email</h2>
+                    <p>hapsarinifirdaarifin@gmail.com</p>
+                </div>
+                <div>
+                    <h2>Phone</h2>
+                    <p>0822345893312</p>
+                </div>
+                <div>
+                    <h2>Instagram</h2>
+                    <p>@hapsaspah</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
